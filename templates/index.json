@@ -291,7 +291,6 @@
     },
     "tisso_banner_4W9LNm": {
       "type": "tisso-banner",
-      "disabled": true,
       "name": "Hero Banner",
       "settings": {
         "desktop_bg_image": "shopify:\/\/shop_images\/Hero_Banne_background_image.jpg",
