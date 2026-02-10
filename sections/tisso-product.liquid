@@ -1,0 +1,798 @@
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&family=Lustria&display=swap" rel="stylesheet">
+<style>
+  /* --- Base Styles --- */
+  .tisso-grid-section {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 56px 16.72px 23.74px;
+    position: relative;
+    font-family: 'Jost'
+    , sans-serif;
+  }
+
+  .font-lustria {
+    font-family: 'Lustria';
+  }
+
+  .font-jost {
+    font-family: 'Jost'
+    , sans-serif;
+  }
+
+  .tisso-wrapper {
+    margin: 0 auto;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* --- Heading --- */
+  .tisso-heading {
+    width: 100%;
+    margin: 0;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+    color: #000000;
+    text-align: center;
+  }
+
+  /* --- Product Grid --- */
+  .tisso-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .tisso-product-card {
+    position: relative;
+    flex: 0 0 calc(50% - 2px);
+    overflow: hidden;
+    aspect-ratio: 169 / 186;
+  }
+
+  .tisso-product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* --- Interactive Plus Icon --- */
+  .plus-icon-trigger {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15.71px;
+    height: 15.71px;
+    /* transition: transform 0.2s ease; */
+  }
+
+  .plus-icon-trigger svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* --- Media Queries */
+  @media (max-width: 767px) {
+    .plus-icon-trigger {
+      top: var(--top-m) !important;
+      left: var(--left-m) !important;
+      right: auto !important;
+      transform: none !important;
+    }
+
+  }
+
+  @media (min-width: 1024px) {
+    .tisso-grid-section {
+      padding: 68px 49.5px 51.5px 51.5px;
+    }
+
+    .tisso-heading {
+      text-align: left;
+      font-size: 36px;
+    }
+
+    .tisso-grid {
+      gap: 20px;
+    }
+
+    .tisso-product-card {
+      flex: 1 1 calc(33.333% - 14px);
+      min-width: 300px;
+      height: 444px;
+      aspect-ratio: auto;
+    }
+
+    .plus-icon-trigger {
+      top: var(--top-d) !important;
+      left: var(--left-d) !important;
+      width: 22px;
+      height: 22px;
+    }
+
+    .plus-icon-trigger:hover {
+      transform: scale(1.2);
+    }
+
+  }
+
+  /* --- Quick View Modal Overlay --- */
+  #product-popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #product-popup-overlay.active {
+    display: flex;
+
+  }
+
+  .popup-modal {
+    background-color: #ffffff;
+    width: 311px;
+    height: 447px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.20);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 50;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 310px;
+    height: 450px;
+  }
+
+  /* --- Modal Product Details --- */
+  #popup-main-image {
+    position: absolute;
+    width: 120px;
+    height: 140px;
+    object-fit: cover;
+    top: 36.42px;
+    left: 17px;
+  }
+
+  #popup-product-title {
+    position: absolute;
+    top: 39px;
+    left: 145px;
+    width: 136px;
+    height: 38px;
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  #popup-product-price {
+    position: absolute;
+    top: 88px;
+    left: 145px;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  #popup-metafield-info {
+    position: absolute;
+    top: 119px;
+    left: 145px;
+    width: 146px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  /* --- Variant Selectors --- */
+  .variant-selection-wrapper {
+    position: absolute;
+    top: 186px;
+    left: 20px;
+    width: 271px;
+  }
+
+  .option-title {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+    margin: 0 0 6px;
+  }
+
+  .color-options-row {
+    display: flex;
+    width: 271px;
+    height: 40.44px;
+    border: 0.5px solid #000000;
+    box-sizing: border-box;
+    align-items: center;
+    overflow: hidden;
+    background: #FFFFFF;
+  }
+
+  .color-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  .color-box.selected {
+    background-color: rgba(0, 0, 0, 1) !important;
+  }
+
+  .color-box.selected .color-text {
+    color: #ffffff !important;
+  }
+
+  .color-indicator-left {
+    width: 5.81px;
+    height: 40.44px;
+    border: 0.5px solid #000000;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+
+  .color-text {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: -0.02em;
+    text-transform: capitalize;
+    padding-left: 15px;
+    color: #000000;
+    display: flex;
+    align-items: center;
+  }
+
+  /* --- Dropdown Styles --- */
+  .size-dropdown-box {
+    width: 271px;
+    height: 40.44px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin-top: 6px;
+    cursor: pointer;
+    background: #FFFFFF;
+    position: relative;
+  }
+  .dropdown-text {
+    flex: 1;
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding-left: 15px;
+  }
+
+  .size-dropdown-divider {
+    width: 0.5px;
+    height: 40.44px;
+    background-color: #000000;
+  }
+
+  .dropdown-icon {
+    width: 39.73px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .size-options-list {
+    position: absolute;
+    top: 38px;
+    left: -1px;
+    height: 80px;
+    width: 271px;
+    background: #ffffff;
+    border: 1px solid #000000;
+    z-index: 1000;
+    display: none;
+    overflow-y: scroll;
+    scrollbar-width: none;
+  }
+
+  .size-option {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .size-option:hover {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  .size-dropdown-box.active .size-options-list {
+    display: block;
+  }
+  .size-dropdown-box.active .dropdown-icon svg {
+    transform: rotate(180deg);
+  }
+
+  /* --- Add to Cart Button --- */
+  .add-to-cart-btn {
+    position: absolute;
+    bottom: 25px;
+    left: 20px;
+    min-height: 45px;
+    min-width: 271px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .add-to-cart-btn p {
+    text-transform: uppercase;
+    font-size: 16px;
+    margin: 0;
+  }
+
+</style>
+
+
+<section class="tisso-grid-section">
+
+  <div class="tisso-container">
+
+    <div class="tisso-wrapper">
+
+      {%- if section.settings.heading != blank -%}
+
+        <h2 class="tisso-heading font-lustria">{{ section.settings.heading | escape }}</h2>
+
+      {%- endif -%}
+
+
+      <div class="tisso-grid">
+
+        {%- for block in section.blocks -%}
+
+          {%- assign product = all_products[block.settings.selected_product] -%}
+
+          <div class="tisso-product-card" {{ block.shopify_attributes }}>
+
+            {%- if product != blank -%}
+
+              <img
+                src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}"
+                alt="{{ product.title | escape }}"
+                loading="lazy">
+
+              <div
+                class="plus-icon-trigger"
+                style="--top-d: {{ block.settings.pos_y }}px; --left-d: {{ block.settings.pos_x }}px; --top-m: {{ block.settings.pos_y_mobile }}%; --left-m: {{ block.settings.pos_x_mobile }}%;"
+                onclick="openQuickView('{{ product.handle }}')">
+
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 22 22"
+                  fill="none">
+
+                  <circle
+                    cx="11"
+                    cy="11"
+                    r="11"
+                    fill="#F8F8F8"
+                    fill-opacity="0.9" />
+
+                  <path
+                    d="M11.3457 7.04175V15.5033"
+                    stroke="black"
+                    stroke-width="1.5"
+                    stroke-linecap="square" />
+
+                  <path
+                    d="M7.11523 11.2725H15.5768"
+                    stroke="black"
+                    stroke-width="1.5"
+                    stroke-linecap="square" />
+
+                </svg>
+
+              </div>
+
+            {%- else -%}
+
+              <div class="tisso-placeholder" style="width:100%; aspect-ratio: 1 / 1; background:#ffffff; border:1px solid #eeeeee;"></div>
+
+            {%- endif -%}
+
+          </div>
+
+        {%- endfor -%}
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="product-popup-overlay" onclick="closeQuickViewExternal(event)">
+    <div class="popup-modal">
+      <button onclick="closeQuickView()" class="popup-close">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none">
+
+          <path
+            d="M13 1L1 13M1 1L13 13"
+            stroke="black"
+            stroke-width="1.2"
+            stroke-linecap="round" />
+        </svg>
+      </button>
+      <div class="popup-content">
+        <img
+          id="popup-main-image"
+          src=""
+          alt="Product">
+        <h3 id="popup-product-title" class="font-jost"></h3>
+        <p id="popup-product-price" class="font-lustria"></p>
+        <div id="popup-metafield-info" class="font-jost"></div>
+        <div class="variant-selection-wrapper">
+          <p class="option-title">Color</p>
+          <div class="color-options-row" id="popup-color-options"></div>
+          <p class="option-title" style="margin-top: 24px;">Size</p>
+          <div class="size-dropdown-box" onclick="toggleSizeDropdown(event)">
+            <span class="dropdown-text" id="selected-size-text">Choose your size</span>
+            <div class="size-dropdown-divider"></div>
+            <div class="dropdown-icon">
+              <svg
+                width="15"
+                height="9"
+                viewBox="0 0 15 9"
+                fill="none">
+                <path
+                  d="M1.06067 1.06067L7.06067 7.06067L13.0607 1.06067"
+                  stroke="black"
+                  stroke-width="1.5"
+                  stroke-linecap="square" />
+              </svg>
+            </div>
+            <div class="size-options-list" id="popup-size-options"></div>
+          </div>
+        </div>
+        <button class="add-to-cart-btn" onclick="addToCart()">
+          <p class="font-jost">ADD TO CART</p>
+          <svg
+            width="36"
+            height="12"
+            viewBox="0 0 36 12"
+            fill="none">
+            <path d="M0.75 4.77295L0 4.77295L0 6.27295L0.75 6.27295L0.75 4.77295ZM34.9798 6.05328C35.2727 5.76039 35.2727 5.28551 34.9798 4.99262L30.2068 0.21965C29.9139 -0.0732432 29.4391 -0.0732433 29.1462 0.21965C28.8533 0.512544 28.8533 0.987417 29.1462 1.28031L33.3888 5.52295L29.1462 9.76559C28.8533 10.0585 28.8533 10.5334 29.1462 10.8263C29.4391 11.1191 29.9139 11.1191 30.2068 10.8263L34.9798 6.05328ZM0.75 6.27295L34.4495 6.27295L34.4495 4.77295L0.75 4.77295L0.75 6.27295Z" fill="white" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  /**
+   * GLOBAL STATE MANAGEMENT
+   * Maintains the state of the Quick View modal, including selections and product data.
+   */
+  const quickViewState = {
+    selectedVariantId: null,
+      productVariants: [],
+      currentSelectedColor: null,
+      currentSelectedSize: null,
+      isAdding: false,
+      currencyCode: '{{ shop.currency }}' || 'CAD'
+    };
+  
+  // PRICE FORMATE
+  function formatCurrency(cents) {
+      const amount = (cents / 100).toFixed(2);
+      // Custom string to ensure format is "Price CurrencySymbol"
+      return `${amount} ${quickViewState.currencyCode}$`;
+    }
+  /**
+   * OPEN QUICK VIEW MODAL
+   * Fetches product data via Shopify Ajax API and populates the modal UI.
+   */
+  async function openQuickView(handle) {
+    const overlay = document.getElementById('product-popup-overlay');
+    const elements = { 
+      title: document.getElementById('popup-product-title'), 
+      info: document.getElementById('popup-metafield-info'),  
+      colors: document.getElementById('popup-color-options'),
+      sizes: document.getElementById('popup-size-options'),
+        price: document.getElementById('popup-product-price'),
+        image: document.getElementById('popup-main-image'),
+        sizeText: document.getElementById('selected-size-text'),
+        addToCartBtn: document.querySelector('.add-to-cart-button')
+      };
+  
+      overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+      Object.assign(quickViewState, { selectedVariantId: null, currentSelectedColor: null, currentSelectedSize: null });
+           elements.title.innerText = 'Loading...';
+      elements.info.innerHTML = 'Fetching details...';
+      elements.colors.innerHTML = '';
+      elements.sizes.innerHTML = '';
+      elements.sizeText.innerText = 'Choose your size';
+      if(elements.addToCartBtn) {
+        elements.addToCartBtn.innerText = "Add to Cart";
+        elements.addToCartBtn.disabled = false;
+      }
+      try {
+        const response = await fetch(`/products/${handle}.js`);
+        const product = await response.json();
+           quickViewState.productVariants = product.variants;
+            elements.image.src = product.featured_image;
+      elements.title.innerText = product.title;
+      elements.info.innerHTML = product.description;
+      // Display initial price
+  
+      elements.price.innerText = formatCurrency(product.price);
+           product.options.forEach(option => {
+          const name = option.name.toLowerCase();
+        
+          if (name.includes('color')) {
+            elements.colors.innerHTML = option.values.map(value => `
+              <div class="color-box" onclick="selectColor('${value}', this)">
+                <div class="color-indicator-left" style="background: ${value.toLowerCase()};"></div>
+                <span class="color-text">${value}</span>
+              </div>`).join('');
+          }
+   
+         if (name === 'size') {
+            elements.sizes.innerHTML = option.values.map(value => `
+              <div class="size-option" onclick="selectSize('${value}', event)">${value}</div>`).join('');
+          }
+        });
+      } catch (error) {
+        console.error("QuickView Error:", error);
+        elements.title.innerText = "Error loading product";
+      }
+    }
+   
+    /**
+     * SELECTION HANDLERS
+     */
+    function selectColor(value, element) {
+      quickViewState.currentSelectedColor = value;
+      document.querySelectorAll('.color-box').forEach(el => el.classList.remove('selected'));
+      element.classList.add('selected');
+      findVariant();
+    }
+     
+  function selectSize(value, event) {
+      event.stopPropagation();
+      quickViewState.currentSelectedSize = value;
+      document.getElementById('selected-size-text').innerText = value;
+      document.querySelector('.size-dropdown-box').classList.remove('active');
+      findVariant();
+    }
+  
+   /**
+     * VARIANT MATCHING & AVAILABILITY CHECK
+     * Updated to check if the variant is in stock.
+     */
+    function findVariant() {
+      const { currentSelectedColor: color, currentSelectedSize: size, productVariants } = quickViewState;
+      const btn = document.querySelector('.add-to-cart-button');
+      const priceEl = document.getElementById('popup-product-price');
+          const match = productVariants.find(v => 
+        (!color || v.options.includes(color)) && 
+        (!size || v.options.includes(size))
+      );
+   if (match) {
+        quickViewState.selectedVariantId = match.id;
+        priceEl.innerText = formatCurrency(match.price); // Update price based on variant
+       
+        // Check if variant is available (In Stock)
+        if (match.available) {
+          btn.innerText = "Add to Cart";
+          btn.disabled = false;
+          btn.style.opacity = "1";
+        } else {
+          btn.innerText = "Out of Stock";
+          btn.disabled = true;
+          btn.style.opacity = "0.5";
+        }
+      } else {
+        quickViewState.selectedVariantId = null;
+        if(btn) {
+          btn.innerText = "Unavailable";
+          btn.disabled = true;
+        }
+      }
+    }
+   
+    /**
+     * ADD TO CART LOGIC
+     */
+    async function addToCart() {
+      const { currentSelectedColor, currentSelectedSize, selectedVariantId, isAdding } = quickViewState;
+         if (isAdding) return; 
+      if (!currentSelectedColor || !currentSelectedSize) return alert("Please select both color and size!");
+      if (!selectedVariantId) return alert("Selected combination is not available!");
+        setBtnLoading(true);
+        try {
+        let itemsToAdd = [{ id: selectedVariantId, quantity: 1 }];
+      if (currentSelectedColor.toLowerCase() === 'black' && ['m', 'medium'].includes(currentSelectedSize.toLowerCase())) {
+          const upsellRes = await fetch('/products/dark-winter-jacket.js');
+         const upsellProd = await upsellRes.json();
+          if (upsellProd.variants.length > 0) itemsToAdd.push({ id: upsellProd.variants[0].id, quantity: 1 });
+        }
+      const cartRes = await fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ items: itemsToAdd })
+        });
+          if (cartRes.ok) window.location.href = '/cart';
+      } catch (err) {
+        console.error("Cart API Error:", err);
+        setBtnLoading(false);
+      }
+    }
+  
+    /**
+     * UI UTILITIES
+     */
+    function setBtnLoading(loading) {
+      quickViewState.isAdding = loading;
+      const btn = document.querySelector('.add-to-cart-button');
+      if (btn && !btn.disabled) {
+          btn.innerText = loading ? "Adding..." : "Add to Cart";
+          btn.style.opacity = loading ? "0.7" : "1";
+      }
+    }
+       function toggleSizeDropdown(event) {
+      event.stopPropagation();
+      document.querySelector('.size-dropdown-box').classList.toggle('active');
+    }
+     function closeQuickView() {
+      document.getElementById('product-popup-overlay').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }  
+  window.addEventListener('click', (e) => {
+      if (e.target.id === 'product-popup-overlay') closeQuickView();
+      const dropdown = document.querySelector('.size-dropdown-box');
+      if (dropdown && !e.target.closest('.size-dropdown-container')) {
+          dropdown.classList.remove('active');
+      }
+    });
+</script>
+
+{% schema %}
+  {
+    "name": "Tisso Product Grid",
+    "max_blocks": 6,
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading",
+        "default": "Tisso vision in the wild"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product_block",
+        "name": "Product Block",
+        "settings": [
+          {
+            "type": "product",
+            "id": "selected_product",
+            "label": "Select Product"
+          },
+          {
+            "type": "header",
+            "content": "Desktop Position"
+          },
+          {
+            "type": "range",
+            "id": "pos_x",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "px",
+            "label": "Icon Left (Desktop)",
+            "default": 100
+          },
+          {
+            "type": "range",
+            "id": "pos_y",
+            "min": 0,
+            "max": 500,
+            "step": 5,
+            "unit": "px",
+            "label": "Icon Top (Desktop)",
+            "default": 20
+          }, {
+            "type": "header",
+            "content": "Mobile Position"
+          }, {
+            "type": "range",
+            "id": "pos_x_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Icon Left (Mobile)",
+            "default": 80
+          }, {
+            "type": "range",
+            "id": "pos_y_mobile",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%",
+            "label": "Icon Top (Mobile)",
+            "default": 10
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Tisso Product Grid",
+        "blocks": [
+          {
+            "type": "product_block"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

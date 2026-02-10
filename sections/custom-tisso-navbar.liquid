@@ -1,0 +1,419 @@
+<section class="navigation-bar" id="navigation-bar">
+  <div class="navigation-bar__desktop">
+    <div class="navigation-bar__container">
+
+      <div class="navigation-bar__logo">
+        {% if section.settings.logo != blank %}
+          <a href="{{ section.settings.logo_link | default: routes.root_url }}" class="navigation-bar__logo-link">
+            <img
+              src="{{ section.settings.logo | image_url: width: 400 }}"
+              alt="{{ shop.name }}"
+              class="navigation-bar__logo-image"
+              loading="lazy">
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="navigation-bar__logo-text">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+
+      <p class="navigation-bar__announcement">{{ section.settings.content }}</p>
+
+      <a href="{{ section.settings.button_link | default: '#' }}" class="navigation-bar__cta">
+        <div class="navigation-bar__cta-wrapper">
+          <span class="navigation-bar__cta-label">{{ section.settings.btn_text }}</span>
+          <svg
+            class="navigation-bar__cta-icon"
+            width="26"
+            height="12"
+            viewBox="0 0 26 12"
+            fill="none">
+            <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="black" />
+          </svg>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="navigation-bar__mobile">
+    <div class="navigation-bar__mobile-header">
+
+      <button
+        id="menu-toggle-trigger"
+        class="navigation-bar__hamburger"
+        aria-expanded="false"
+        aria-label="Menu">
+        <svg
+          class="navigation-bar__icon navigation-bar__icon--open show"
+          width="20"
+          height="12"
+          viewBox="0 0 20 12"
+          fill="none">
+          <path
+            d="M1 6H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 1H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 11H19"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+        </svg>
+        <svg
+          class="navigation-bar__icon navigation-bar__icon--close"
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none">
+          <path
+            d="M1 13.9994L13.7279 1.27147"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+          <path
+            d="M1 1L13.7279 13.7279"
+            stroke="black"
+            stroke-width="2"
+            stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <div class="navigation-bar__mobile-logo">
+        {% if section.settings.logo != blank %}
+          <a href="{{ section.settings.logo_link | default: routes.root_url }}">
+            <img
+              src="{{ section.settings.logo | image_url: width: 300 }}"
+              alt="{{ shop.name }}"
+              class="navigation-bar__logo-image">
+          </a>
+        {% else %}
+          <a href="{{ routes.root_url }}" class="navigation-bar__logo-text">{{ shop.name }}</a>
+        {% endif %}
+      </div>
+
+      <div class="navigation-bar__mobile-spacer"></div>
+    </div>
+
+    <div id="mobile-dropdown-menu" class="navigation-bar__dropdown">
+      <div class="navigation-bar__card">
+        <div class="navigation-bar__card-content">
+          <p class="navigation-bar__card-text">{{ section.settings.content }}</p>
+          <a href="{{ section.settings.button_link | default: '#' }}" class="navigation-bar__cta navigation-bar__cta--full-width">
+            <div class="navigation-bar__cta-wrapper">
+              <span class="navigation-bar__cta-label">{{ section.settings.btn_text }}</span>
+              <svg
+                class="navigation-bar__cta-icon"
+                width="26"
+                height="12"
+                viewBox="0 0 26 12"
+                fill="none">
+                <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="black" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Global Section Styling */
+  .navigation-bar {
+    background: {{ section.settings.navbar_bg_color | default: '#F5F5F5' }};
+    position: relative;
+    width: 100%;
+    z-index: 100;
+  }
+
+  /* CTA Button Design */
+  .navigation-bar__cta {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    min-width: 207px;
+    min-height: 44px;
+    background: #FFF544;
+    text-decoration: none;
+    color: black;
+  }
+
+  .navigation-bar__cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: black;
+    transition: left 0.3s ease;
+    z-index: 1;
+  }
+
+  .navigation-bar__cta:hover::before {
+    left: 0;
+  }
+
+  .navigation-bar__cta-wrapper {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .navigation-bar__cta:hover .navigation-bar__cta-wrapper {
+    color: white;
+  }
+
+  .navigation-bar__cta:hover .navigation-bar__cta-icon path {
+    fill: white;
+    transition: fill 0.3s ease;
+  }
+
+  .navigation-bar__cta-label {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+  /* Desktop View Styling */
+  .navigation-bar__desktop {
+    display: none;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 10px 50px;
+  }
+
+  .navigation-bar__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navigation-bar__logo-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+  }
+
+  .navigation-bar__logo-image {
+    max-height: 45px;
+    width: auto;
+    display: block;
+  }
+
+  .navigation-bar__announcement {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    margin: 0;
+  }
+
+  /* Mobile View Styling */
+  .navigation-bar__mobile {
+    display: block;
+  }
+
+  .navigation-bar__mobile-header {
+    height: 65px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .navigation-bar__hamburger {
+    background: transparent;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .navigation-bar__hamburger.is-active {
+    background: #F2F2F2;
+  }
+
+  .navigation-bar__icon {
+    display: none;
+  }
+
+  .navigation-bar__icon.show {
+    display: block;
+  }
+
+  .navigation-bar__mobile-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navigation-bar__mobile-spacer {
+    width: 40px;
+  }
+
+  /* Mobile Dropdown Animation */
+  .navigation-bar__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 50;
+    transform: translateY(-10px);
+  }
+
+  .navigation-bar__dropdown.is-open {
+    max-height: 500px;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .navigation-bar--scrolled {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .navigation-bar__card {
+    background: #F2F2F2;
+    margin: 0 16px 16px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .navigation-bar__card-content {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .navigation-bar__card-text {
+    font-family: 'Jost'
+    , sans-serif;
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+
+  .navigation-bar__cta--full-width {
+    min-width: 244px;
+  }
+
+  /* Media Queries */
+  @media (min-width: 768px) {
+    .navigation-bar__desktop {
+      display: block;
+    }
+    .navigation-bar__mobile {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const trigger = document.getElementById('menu-toggle-trigger');
+    const dropdown = document.getElementById('mobile-dropdown-menu');  
+    const wrapper = document.getElementById('navigation-bar');
+    const iconOpen = document.querySelector('.navigation-bar__icon--open');
+    const iconClose = document.querySelector('.navigation-bar__icon--close');
+    let isActive = false;
+    
+    trigger.addEventListener('click', (event) => {
+      event.stopPropagation();
+      isActive = !isActive;
+      
+      dropdown.classList.toggle('is-open');
+      trigger.classList.toggle('is-active');
+      wrapper.classList.toggle('navigation-bar--scrolled');
+      
+      iconOpen.classList.toggle('show');
+      iconClose.classList.toggle('show');
+      
+      trigger.setAttribute('aria-expanded', isActive);
+    });
+    
+    // Auto-close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isActive && !wrapper.contains(e.target)) {
+        closeMenu();
+      }
+    });
+    
+    function closeMenu() {
+      isActive = false;
+      dropdown.classList.remove('is-open');
+      trigger.classList.remove('is-active');
+      wrapper.classList.remove('navigation-bar--scrolled');
+      iconOpen.classList.add('show');
+      iconClose.classList.remove('show');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+  })();
+</script>
+
+{% schema %}
+  {
+    "name": "Header Navigation",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Style Settings"
+      },
+      {
+        "type": "color",
+        "id": "navbar_bg_color",
+        "label": "Background Color",
+        "default": "#F5F5F5"
+      },
+      {
+        "type": "header",
+        "content": "Brand Identity"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Custom Logo"
+      }, {
+        "type": "url",
+        "id": "logo_link",
+        "label": "Logo Redirect URL"
+      }, {
+        "type": "header",
+        "content": "Announcement & CTA"
+      }, {
+        "type": "text",
+        "id": "content",
+        "label": "Main Content Text",
+        "default": "Find the ideal gift for your loved ones."
+      }, {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button Label",
+        "default": "Choose Gift"
+      }, {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Header Navigation",
+        "settings": {}
+      }
+    ]
+  }
+{% endschema %}
