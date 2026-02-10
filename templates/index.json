@@ -278,7 +278,7 @@
       }
     },
     "custom_tisso_navbar_FmgCAV": {
-      "type": "custom-tisso-navbar",
+      "type": "shehram-navbar",
       "name": "Header Navigation",
       "settings": {
         "navbar_bg_color": "#f5f5f5",
