@@ -485,10 +485,10 @@
   let productVariants = [];
   let currentSelectedColor = null;
   let currentSelectedSize = null;
-  const Soft_Winter_Jacket_Handle = 'dark-winter-jacket';
+  let Soft_Winter_Jacket_Handle = 'dark-winter-jacket';
   
   function openQuickView(handle) {
-    const overlay = document.getElementById('product-popup-overlay');
+    let overlay = document.getElementById('product-popup-overlay');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
     selectedVariantId = null;
@@ -499,7 +499,7 @@
     document.getElementById('popup-metafield-info').innerHTML = 'Loading description...';
     document.getElementById('popup-color-options').innerHTML = '';
   
-    const sizeOptionsContainer = document.getElementById('popup-size-options');
+    let sizeOptionsContainer = document.getElementById('popup-size-options');
     if (sizeOptionsContainer) sizeOptionsContainer.innerHTML = '';
     document.getElementById('selected-size-text').innerText = 'Choose your size';
   
@@ -517,9 +517,9 @@
         product.options.forEach((option) => {
           let name = option.name.toLowerCase();
           if (name === 'color' || name === 'colour') {
-            const colorContainer = document.getElementById('popup-color-options');
+            let colorContainer = document.getElementById('popup-color-options');
             option.values.forEach((value) => {
-              const colorHtml = `
+              let colorHtml = `
                   <div class="color-box" onclick="selectColor('${value}', this)">
                     <div class="color-indicator-left" style="background: ${value.toLowerCase()};  display: block;"></div>
                     <span class="color-text">${value}</span>
@@ -530,9 +530,9 @@
           }
   
           if (name === 'size') {
-            const sizeContainer = document.getElementById('popup-size-options');
+            let sizeContainer = document.getElementById('popup-size-options');
             option.values.forEach((value) => {
-              const sizeHtml = `
+              let sizeHtml = `
                   <div class="size-option" onclick="selectSize('${value}', event)">
                     ${value}
                   </div>
@@ -563,8 +563,8 @@
   function findVariant() {
     selectedVariantId = null;
     if (currentSelectedColor && currentSelectedSize) {
-      const matchedVariant = productVariants.find((variant) => {
-        const options = [variant.option1, variant.option2, variant.option3];
+      let matchedVariant = productVariants.find((variant) => {
+        let options = [variant.option1, variant.option2, variant.option3];
         return options.includes(currentSelectedColor) && options.includes(currentSelectedSize);
       });
       if (matchedVariant) {
@@ -584,15 +584,15 @@
       return;
     }
   
-    let itemsToAdd = [{ id: selectedVariantId }];
+    let itemsToAdd = [{ id: selectedVariantId,quantity: 1 }];
   
-    const isBlackMedium = currentSelectedColor.toLowerCase() === 'black' && currentSelectedSize.toLowerCase() === 'm';
+    let isBlackMedium = currentSelectedColor.toLowerCase() === 'black' && currentSelectedSize.toLowerCase() === 'm';
   
     if (isBlackMedium) {
-      fetch(`/products/${Soft_Winter_Jacket_Handle}.js`)
+      fetch(`/products/dark-winter-jacket.js`)
         .then((res) => res.json())
         .then((product) => {
-          const WinterJacketVariantId = product.variants[0].id;
+          let WinterJacketVariantId = product.variants[0].id;
           itemsToAdd.push({ id: WinterJacketVariantId });
           return addItemsToCart(itemsToAdd);
         })
@@ -617,23 +617,23 @@
   
   function toggleSizeDropdown(event) {
     event.stopPropagation();
-    const dropdownBox = document.querySelector('.size-dropdown-box');
+    let dropdownBox = document.querySelector('.size-dropdown-box');
     if (dropdownBox) dropdownBox.classList.toggle('active');
   }
   
   function closeQuickView() {
-    const overlay = document.getElementById('product-popup-overlay');
+    let overlay = document.getElementById('product-popup-overlay');
     overlay.classList.remove('active');
     document.body.style.overflow = 'auto';
   }
   
   function closeQuickViewExternal(event) {
-    const overlay = document.getElementById('product-popup-overlay');
+    let overlay = document.getElementById('product-popup-overlay');
     if (event.target === overlay) closeQuickView();
   }
   
   document.addEventListener('click', function () {
-    const dropdownBox = document.querySelector('.size-dropdown-box');
+    let dropdownBox = document.querySelector('.size-dropdown-box');
     if (dropdownBox) dropdownBox.classList.remove('active');
   });
 </script>
