@@ -277,8 +277,21 @@
         "padding-block-end": 48
       }
     },
-    "tisso_banner_JNcnMy": {
+    "custom_tisso_navbar_FmgCAV": {
+      "type": "custom-tisso-navbar",
+      "name": "Header Navigation",
+      "settings": {
+        "navbar_bg_color": "#f5f5f5",
+        "logo": "shopify:\/\/shop_images\/tisso_logo.avif",
+        "logo_link": "",
+        "content": "Find the ideal gift for your loved ones.",
+        "btn_text": "Choose Gift",
+        "button_link": ""
+      }
+    },
+    "tisso_banner_4W9LNm": {
       "type": "tisso-banner",
+      "disabled": true,
       "name": "Hero Banner",
       "settings": {
         "desktop_bg_image": "shopify:\/\/shop_images\/Hero_Banne_background_image.jpg",
@@ -291,11 +304,90 @@
         "bottom_bar_desktop_text": "Free shipping over $50 • 30-day returns • 24\/7 support",
         "bottom_bar_mobile_text": "Free shipping • Easy returns"
       }
+    },
+    "tisso_product_K7Wj3U": {
+      "type": "tisso-product",
+      "blocks": {
+        "product_block_9BKcB8": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "black-leather-bag",
+            "pos_x": 280,
+            "pos_y": 260,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
+          }
+        },
+        "product_block_9Md9Tx": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "blue-silk-tuxedo",
+            "pos_x": 365,
+            "pos_y": 215,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
+          }
+        },
+        "product_block_nVk86z": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "chequered-red-shirt",
+            "pos_x": 270,
+            "pos_y": 80,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
+          }
+        },
+        "product_block_ULet8V": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "classic-leather-jacket",
+            "pos_x": 315,
+            "pos_y": 95,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
+          }
+        },
+        "product_block_jD69rY": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "classic-varsity-top",
+            "pos_x": 210,
+            "pos_y": 105,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
+          }
+        },
+        "product_block_kcLneE": {
+          "type": "product_block",
+          "settings": {
+            "selected_product": "dark-denim-top",
+            "pos_x": 310,
+            "pos_y": 195,
+            "pos_x_mobile": 80,
+            "pos_y_mobile": 10
+          }
+        }
+      },
+      "block_order": [
+        "product_block_9BKcB8",
+        "product_block_9Md9Tx",
+        "product_block_nVk86z",
+        "product_block_ULet8V",
+        "product_block_jD69rY",
+        "product_block_kcLneE"
+      ],
+      "name": "Tisso Product Grid",
+      "settings": {
+        "heading": "Tisso vision in the wild"
+      }
     }
   },
   "order": [
     "hero_jVaWmY",
     "product_list_fa6P9H",
-    "tisso_banner_JNcnMy"
+    "custom_tisso_navbar_FmgCAV",
+    "tisso_banner_4W9LNm",
+    "tisso_product_K7Wj3U"
   ]
 }
