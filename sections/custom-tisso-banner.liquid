@@ -1,12 +1,10 @@
 <section class="hero-banner">
   <div class="hero-banner__wrapper">
-
     <div class="hero-banner__desktop" style="background-image: url('{{ section.settings.desktop_bg_image | image_url: width: 2000 }}')">
       <div class="hero-banner__content--wraper" style="max-width: 1440px; margin:auto; width">
         <div class="hero-banner__content">
           <h1 class="hero-banner__heading">{{ section.settings.heading }}</h1>
           <p class="hero-banner__description">{{ section.settings.desktop_description }}</p>
-
           <a href="{{ section.settings.button_link | default: '#' }}" class="hero-banner__button">
             <div class="hero-banner__button-container" style="height: 50px;">
               <span class="hero-banner__button-text">{{ section.settings.button_text }}</span>
@@ -28,7 +26,6 @@
     <div class="hero-banner__mobile">
       <h1 class="hero-banner__heading hero-banner__heading--mobile">{{ section.settings.heading }}</h1>
       <p class="hero-banner__description hero-banner__description--mobile">{{ section.settings.mobile_description }}</p>
-
       <div class="hero-banner__mobile-image" style="background-image: url('{{ section.settings.mobile_bg_image | image_url: width: 800 }}')">
         <a href="{{ section.settings.button_link | default: '#' }}" class="hero-banner__button hero-banner__button--mobile">
           <div class="hero-banner__button-container">
@@ -52,9 +49,8 @@
     <p class="hero-banner__bar-text hero-banner__bar-text--mobile">{{ section.settings.bottom_bar_mobile_text }}</p>
   </div>
 </section>
-
 <style>
-  /* Button Base Styling */
+
   .hero-banner__button {
     position: relative;
     overflow: hidden;
@@ -66,7 +62,7 @@
     color: white;
   }
 
-  /* Hover Background Effect */
+
   .hero-banner__button::before {
     content: '';
     position: absolute;
@@ -83,7 +79,6 @@
     left: 0;
   }
 
-  /* Button Content Layout */
   .hero-banner__button-container {
     position: relative;
     z-index: 2;
@@ -111,13 +106,11 @@
     text-transform: uppercase;
   }
 
-  /* Section Layout Styling */
   .hero-banner {
     width: 100%;
     overflow: hidden;
   }
 
-  /* Bottom Bar Styling */
   .hero-banner__bottom-bar {
     background-color: #F5F5F5;
     padding: 10px 50px;
@@ -150,7 +143,6 @@
     font-size: 14px;
   }
 
-  /* Desktop Background Styling */
   .hero-banner__desktop {
     display: block;
     height: 780px;
@@ -187,11 +179,6 @@
     max-width: 440px;
   }
 
-  .hero-banner__mobile {
-    display: none;
-    padding-top: 50px;
-  }
-  /* Mobile Responsive Styling */
   @media screen and (max-width: 768px) {
     .hero-banner__desktop {
       display: none;
@@ -253,7 +240,6 @@
     }
   }
 
-  /* Tablet Adjustments */
   @media screen and (min-width: 769px) and(max-width: 1024px) {
     .hero-banner__content {
       left: 3%;

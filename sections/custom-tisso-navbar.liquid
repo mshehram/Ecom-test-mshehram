@@ -123,7 +123,7 @@
 </section>
 
 <style>
-  /* Global Section Styling */
+
   .navigation-bar {
     background: {{ section.settings.navbar_bg_color | default: '#F5F5F5' }};
     position: relative;
@@ -131,7 +131,6 @@
     z-index: 100;
   }
 
-  /* CTA Button Design */
   .navigation-bar__cta {
     position: relative;
     overflow: hidden;
@@ -186,7 +185,7 @@
     text-transform: uppercase;
   }
 
-  /* Desktop View Styling */
+
   .navigation-bar__desktop {
     display: none;
     max-width: 1440px;
@@ -220,7 +219,7 @@
     margin: 0;
   }
 
-  /* Mobile View Styling */
+
   .navigation-bar__mobile {
     display: block;
   }
@@ -264,7 +263,6 @@
     width: 40px;
   }
 
-  /* Mobile Dropdown Animation */
   .navigation-bar__dropdown {
     position: absolute;
     top: 100%;
@@ -311,7 +309,6 @@
     min-width: 244px;
   }
 
-  /* Media Queries */
   @media (min-width: 768px) {
     .navigation-bar__desktop {
       display: block;
@@ -323,35 +320,34 @@
 </style>
 
 <script>
-  (function() {
+  function initMobileMenu() {
     const trigger = document.getElementById('menu-toggle-trigger');
     const dropdown = document.getElementById('mobile-dropdown-menu');  
     const wrapper = document.getElementById('navigation-bar');
     const iconOpen = document.querySelector('.navigation-bar__icon--open');
     const iconClose = document.querySelector('.navigation-bar__icon--close');
     let isActive = false;
-    
+  
     trigger.addEventListener('click', (event) => {
       event.stopPropagation();
       isActive = !isActive;
-      
+  
       dropdown.classList.toggle('is-open');
       trigger.classList.toggle('is-active');
       wrapper.classList.toggle('navigation-bar--scrolled');
-      
+  
       iconOpen.classList.toggle('show');
       iconClose.classList.toggle('show');
-      
+  
       trigger.setAttribute('aria-expanded', isActive);
     });
-    
-    // Auto-close when clicking outside
+  
     document.addEventListener('click', (e) => {
       if (isActive && !wrapper.contains(e.target)) {
         closeMenu();
       }
     });
-    
+  
     function closeMenu() {
       isActive = false;
       dropdown.classList.remove('is-open');
@@ -361,7 +357,8 @@
       iconClose.classList.remove('show');
       trigger.setAttribute('aria-expanded', 'false');
     }
-  })();
+  }
+  initMobileMenu();
 </script>
 
 {% schema %}
