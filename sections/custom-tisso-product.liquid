@@ -585,7 +585,6 @@
     }
   
     let itemsToAdd = [{ id: selectedVariantId,quantity: 1 }];
-  
     let isBlackMedium = currentSelectedColor.toLowerCase() === 'black' && currentSelectedSize.toLowerCase() === 'm';
   
     if (isBlackMedium) {
@@ -593,7 +592,7 @@
         .then((res) => res.json())
         .then((product) => {
           let WinterJacketVariantId = product.variants[0].id;
-          itemsToAdd.push({ id: WinterJacketVariantId });
+          itemsToAdd.push({ id: WinterJacketVariantId ,quantity: 1});
           return addItemsToCart(itemsToAdd);
         })
         .catch((err) => console.error(err));
