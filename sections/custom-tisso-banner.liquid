@@ -22,7 +22,6 @@
       </div>
     </div>
 
-
     <div class="hero-banner__mobile">
       <h1 class="hero-banner__heading hero-banner__heading--mobile">{{ section.settings.heading }}</h1>
       <p class="hero-banner__description hero-banner__description--mobile">{{ section.settings.mobile_description }}</p>
@@ -178,12 +177,13 @@
     color: #333333;
     max-width: 440px;
   }
-
+  .hero-banner__mobile {
+    display: none;
+  }
   @media screen and (max-width: 768px) {
     .hero-banner__desktop {
       display: none;
     }
-
     .hero-banner__mobile {
       display: block;
       margin-top: 50px;

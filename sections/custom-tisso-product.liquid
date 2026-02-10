@@ -5,18 +5,14 @@
     background-color: #ffffff;
     padding: 56px 16.72px 23.74px;
     position: relative;
-    font-family: 'Jost'
-    , sans-serif;
+    font-family: 'Jost';
   }
   .font-lustria {
-    font-family: 'Lustria'
-    , serif;
+    font-family: 'Lustria';
   }
   .font-jost {
-    font-family: 'Jost'
-    , sans-serif;
+    font-family: 'Jost';
   }
-
   .tisso-wrapper {
     margin: 0 auto;
     max-width: 1440px;
@@ -220,8 +216,7 @@
   }
 
   .option-title {
-    font-family: 'Jost'
-    , sans-serif;
+    font-family: 'Jost';
     font-size: 14px;
     font-weight: 400;
     color: #333333;
@@ -268,8 +263,7 @@
   }
 
   .color-text {
-    font-family: 'Jost'
-    , sans-serif;
+    font-family: 'Jost';
     font-size: 18px;
     font-weight: 400;
     line-height: 100%;
@@ -297,8 +291,7 @@
 
   .dropdown-text {
     flex: 1;
-    font-family: 'Jost'
-    , sans-serif;
+    font-family: 'Jost';
     font-size: 16px;
     font-weight: 400;
     line-height: 100%;
@@ -346,8 +339,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Jost'
-    , sans-serif;
+    font-family: 'Jost';
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
@@ -494,23 +486,20 @@
   let currentSelectedColor = null;
   let currentSelectedSize = null;
   const Soft_Winter_Jacket_Handle = 'dark-winter-jacket';
+  
   function openQuickView(handle) {
     const overlay = document.getElementById('product-popup-overlay');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
-  
     selectedVariantId = null;
     currentSelectedColor = null;
     currentSelectedSize = null;
   
     document.getElementById('popup-product-title').innerText = 'Loading...';
-  
     document.getElementById('popup-metafield-info').innerHTML = 'Loading description...';
-  
     document.getElementById('popup-color-options').innerHTML = '';
   
     const sizeOptionsContainer = document.getElementById('popup-size-options');
-  
     if (sizeOptionsContainer) sizeOptionsContainer.innerHTML = '';
     document.getElementById('selected-size-text').innerText = 'Choose your size';
   
@@ -573,65 +562,38 @@
   
   function findVariant() {
     selectedVariantId = null;
-  
-    for (let i = 0; i < productVariants.length; i++) {
-      const variant = productVariants[i];
-  
-      let colorMatch = true;
-      let sizeMatch = true;
-  
-      if (currentSelectedColor) {
-        colorMatch = false;
-        for (let j = 0; j < 3; j++) {
-          if (variant[`option${j + 1}`] === currentSelectedColor) {
-            colorMatch = true;
-            break;
-          }
-        }
-      }
-  
-      if (currentSelectedSize) {
-        sizeMatch = false;
-        for (let j = 0; j < 3; j++) {
-          if (variant[`option${j + 1}`] === currentSelectedSize) {
-            sizeMatch = true;
-            break;
-          }
-        }
-      }
-  
-      if (colorMatch && sizeMatch) {
-        selectedVariantId = variant.id;
-        break;
+    if (currentSelectedColor && currentSelectedSize) {
+      const matchedVariant = productVariants.find((variant) => {
+        const options = [variant.option1, variant.option2, variant.option3];
+        return options.includes(currentSelectedColor) && options.includes(currentSelectedSize);
+      });
+      if (matchedVariant) {
+        selectedVariantId = matchedVariant.id;
       }
     }
   }
   
   function addToCart() {
-    if (!selectedVariantId) {
-      alert('Please select variant options first!');
+    if (!currentSelectedColor || !currentSelectedSize) {
+      alert('Please select both Color and Size first!');
       return;
     }
   
-    let itemsToAdd = [
-      {
-        id: selectedVariantId,
-      },
-    ];
+    if (!selectedVariantId) {
+      alert('This combination is not available!');
+      return;
+    }
   
+    let itemsToAdd = [{ id: selectedVariantId }];
   
-    const isBlackMedium = currentSelectedColor?.toLowerCase() === 'black' && currentSelectedSize?.toLowerCase() === 'm';
+    const isBlackMedium = currentSelectedColor.toLowerCase() === 'black' && currentSelectedSize.toLowerCase() === 'm';
   
     if (isBlackMedium) {
       fetch(`/products/${Soft_Winter_Jacket_Handle}.js`)
         .then((res) => res.json())
         .then((product) => {
           const WinterJacketVariantId = product.variants[0].id;
-  
-          itemsToAdd.push({
-            id: WinterJacketVariantId,
-          });
-  
+          itemsToAdd.push({ id: WinterJacketVariantId });
           return addItemsToCart(itemsToAdd);
         })
         .catch((err) => console.error(err));
@@ -639,6 +601,7 @@
       addItemsToCart(itemsToAdd);
     }
   }
+  
   function addItemsToCart(items) {
     fetch('/cart/add.js', {
       method: 'POST',
